@@ -1,0 +1,22 @@
+PODS:
+  - LBTATools (1.0.8)
+  - SDWebImage (5.0.6):
+    - SDWebImage/Core (= 5.0.6)
+  - SDWebImage/Core (5.0.6)
+
+DEPENDENCIES:
+  - LBTATools
+  - SDWebImage
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - LBTATools
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  LBTATools: 913ba0a3fbad250d042368ca2a0f314cdb015de1
+  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
+
+PODFILE CHECKSUM: 5509353b745f60caaa9eed97accaf7be8672b018
+
+COCOAPODS: 1.7.4
