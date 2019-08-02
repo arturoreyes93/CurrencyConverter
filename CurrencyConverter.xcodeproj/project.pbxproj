@@ -21,7 +21,6 @@
 		DD3F693922F3C7720063EE3A /* FixerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3F693822F3C7720063EE3A /* FixerConstants.swift */; };
 		DD3F693B22F3D78A0063EE3A /* CurrencyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3F693A22F3D78A0063EE3A /* CurrencyNavigationController.swift */; };
 		DDABAE4B22F4886100A03B3E /* NumberKeyPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDABAE4A22F4886100A03B3E /* NumberKeyPad.swift */; };
-		DDABAE4D22F491F000A03B3E /* CashTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDABAE4C22F491F000A03B3E /* CashTextFieldDelegate.swift */; };
 		DDABAE4F22F4925B00A03B3E /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDABAE4E22F4925B00A03B3E /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 		DD3F693822F3C7720063EE3A /* FixerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixerConstants.swift; sourceTree = "<group>"; };
 		DD3F693A22F3D78A0063EE3A /* CurrencyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyNavigationController.swift; sourceTree = "<group>"; };
 		DDABAE4A22F4886100A03B3E /* NumberKeyPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberKeyPad.swift; sourceTree = "<group>"; };
-		DDABAE4C22F491F000A03B3E /* CashTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashTextFieldDelegate.swift; sourceTree = "<group>"; };
 		DDABAE4E22F4925B00A03B3E /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +108,6 @@
 				DD23FF2722F39A44001F31E4 /* CurrencyService.swift */,
 				DD3F693822F3C7720063EE3A /* FixerConstants.swift */,
 				DDABAE4A22F4886100A03B3E /* NumberKeyPad.swift */,
-				DDABAE4C22F491F000A03B3E /* CashTextFieldDelegate.swift */,
 				DDABAE4E22F4925B00A03B3E /* String+Extensions.swift */,
 			);
 			path = CurrencyConverter;
@@ -250,7 +247,6 @@
 				DD23FF2822F39A44001F31E4 /* CurrencyService.swift in Sources */,
 				DD1B1A8622F371BF004B0A65 /* RateCell.swift in Sources */,
 				DD23FF2622F38898001F31E4 /* BaseCurrencyTableController.swift in Sources */,
-				DDABAE4D22F491F000A03B3E /* CashTextFieldDelegate.swift in Sources */,
 				DD1B1A8222F341A4004B0A65 /* Currency.swift in Sources */,
 				DD1B1A7022F33D25004B0A65 /* AppDelegate.swift in Sources */,
 			);
