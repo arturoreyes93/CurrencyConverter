@@ -34,7 +34,11 @@ class Rate {
     let currency: Currency
     var rate: Double
     var multiplier: Double
-    var conversion: Double { return rate * multiplier }
+    var conversion: Double {
+        var conv = rate * multiplier
+        conv = round(conv*1000)/1000
+        return conv
+    }
     
     init(for currency: Currency, rate: Double, multiplier: Double? = nil) {
         self.currency = currency
@@ -46,7 +50,7 @@ class Rate {
 
 struct Currencies {
     
-    static let list: [Currency] = [USD(), MXN(), CAD(), EUR(), GBP(), AUD(), BRL(), CLP(), CNY(), COU(), DKK(), PEN(), TRY(), JPY(), NZD(), CHF()]
+    static let list: [Currency] = [USD(), MXN(), CAD(), EUR(), GBP(), AUD(), BRL(), CLP(), CNY(), DKK(), PEN(), TRY(), JPY(), NZD(), CHF()]
     
     struct USD: Currency {
         var name: String { return "United States Dollar" }
@@ -91,11 +95,6 @@ struct Currencies {
     struct CNY: Currency {
         var name: String { return "Yuan Renminbi" }
         var flagCode: String { return "cn" }
-    }
-    
-    struct COU: Currency {
-        var name: String { return "Unidad de Valor Real" }
-        var flagCode: String { return "co" }
     }
     
     struct DKK: Currency {

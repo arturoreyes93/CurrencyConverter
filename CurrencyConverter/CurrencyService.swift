@@ -63,7 +63,7 @@ class CurrencyService {
         self.rates.removeAll()
         for currency in Currencies.list {
             if let availableRate = rates[currency.code] as? Double {
-                let rounded = round(availableRate * 100)/100
+                let rounded = round(availableRate * 1000)/1000
                 let newRate = Rate(for: currency, rate: rounded)
                 self.rates.append(newRate)
             }

@@ -38,6 +38,7 @@ class CalculatorViewController: UIViewController, NumberKeyPadDelegate {
         self.targetAmountLabel.text = "\(rate.conversion)"
         self.targetCurrencyLabel.text = rate.currency.code
         self.baseAmountLabel.text = "\(rate.multiplier)"
+        self.baseCurrencyLabel.text = service.base.code
         self.setNumberPad()
         
     }
@@ -54,9 +55,19 @@ class CalculatorViewController: UIViewController, NumberKeyPadDelegate {
         
     }
     
+    private func amountUpdated() {
+        guard let rate = self.rate else { return }
+        if let text = self.baseAmountLabel.text, let multiplier = Double(text) {
+            let targetAmount = rate.rate * multiplier
+            let rounded = round(targetAmount * 1000)/1000
+            self.targetAmountLabel.text = String(rounded)
+        }
+    }
+    
     func numberKeyPressed(number: Int) {
         if let currentText = self.baseAmountLabel.text {
             self.baseAmountLabel.text = currentText.addingDigit(number)
+            self.amountUpdated()
         }
     }
     
@@ -64,6 +75,7 @@ class CalculatorViewController: UIViewController, NumberKeyPadDelegate {
         self.baseAmountLabel.text?.removeLast()
         if var currentText = self.baseAmountLabel.text {
             self.baseAmountLabel.text = currentText.deleteDigit()
+            self.amountUpdated()
         }
     }
     
@@ -73,7 +85,6 @@ class CalculatorViewController: UIViewController, NumberKeyPadDelegate {
             self.rate?.multiplier = newMultiplier
             self.navigationController?.popViewController(animated: true)
         }
-        
     }
 
 }
