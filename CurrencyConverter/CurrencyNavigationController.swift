@@ -12,9 +12,14 @@ class CurrencyNavigationController: UINavigationController {
     
     var currencyService: CurrencyService
     
-    init(root: CurrenciesViewController, base: Currency) {
-        self.currencyService = CurrencyService(base: base, delegate: root)
-        super.init(rootViewController: root)
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nil, bundle: nil)
+//    }
+    
+    init(root: CurrenciesViewController, service: CurrencyService) {
+        self.currencyService = service
+        super.init(nibName: nil, bundle: nil)
+        self.setViewControllers([root], animated: false)
     }
     
     required init?(coder aDecoder: NSCoder) {

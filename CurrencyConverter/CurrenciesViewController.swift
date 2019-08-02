@@ -17,15 +17,9 @@ class CurrenciesViewController: UIViewController {
     @IBOutlet weak var baseCurrencyCodeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    private unowned var service: CurrencyService {
-        guard let navigationController = self.navigationController as? CurrencyNavigationController else {
-            let fallbackService = CurrencyService(base: Currencies.USA(), delegate: self)
-            return fallbackService
-        }
-        
-        return navigationController.currencyService
+    private var service: CurrencyService? {
+        return (self.navigationController as? CurrencyNavigationController)?.currencyService
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +37,17 @@ class CurrenciesViewController: UIViewController {
     }
     
     @objc private func selectBasecurrency() {
-        let selectBaseController = BasecurrencyTableViewController(service: service, delegate: self)
-        self.present(selectBaseController, animated: true, completion: nil)
+        if let service = self.service {
+            let selectBaseController = BasecurrencyTableViewController(service: service, delegate: self)
+            self.present(selectBaseController, animated: true, completion: nil)
+        }
     }
     
     private func setBasecurrencyUI() {
-        self.baseCurrencyFlagImageView.sd_setImage(with: service.base.flagURL, completed: nil)
-        self.baseCurrencyCodeLabel.text = service.base.code
+        if let service = self.service {
+            self.baseCurrencyFlagImageView.sd_setImage(with: service.base.flagURL, completed: nil)
+            self.baseCurrencyCodeLabel.text = service.base.code
+        }
     }
 
 }
