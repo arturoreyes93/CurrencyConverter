@@ -9,13 +9,13 @@
 import UIKit
 import SDWebImage
 
-class CurrenciesViewController: UIViewController {
+class RatesViewController: UIViewController {
     
     static let identifier = "CurrenciesViewController"
     
-    @IBOutlet weak var baseCurrencyFlagImageView: UIImageView!
-    @IBOutlet weak var baseCurrencyCodeLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private var baseCurrencyFlagImageView: UIImageView!
+    @IBOutlet private var baseCurrencyCodeLabel: UILabel!
+    @IBOutlet private var tableView: UITableView!
     
     private var service: CurrencyService? {
         return (self.navigationController as? CurrencyNavigationController)?.currencyService
@@ -23,8 +23,6 @@ class CurrenciesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         let basecurrencyRecognizer = UITapGestureRecognizer(target: self, action: #selector(selectBasecurrency))
         self.baseCurrencyFlagImageView.addGestureRecognizer(basecurrencyRecognizer)
@@ -34,11 +32,16 @@ class CurrenciesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setBasecurrencyUI()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        DispatchQueue.main.async {[unowned self] in
+            self.tableView.reloadData()
+        }
     }
     
     @objc private func selectBasecurrency() {
         if let service = self.service {
-            let selectBaseController = BasecurrencyTableViewController(service: service, delegate: self)
+            let selectBaseController = BaseCurrencyTableController(service: service)
             self.present(selectBaseController, animated: true, completion: nil)
         }
     }
@@ -52,33 +55,39 @@ class CurrenciesViewController: UIViewController {
 
 }
 
-extension CurrenciesViewController: UITableViewDelegate, UITableViewDataSource {
+extension RatesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Currencies.list.count
+        return self.service?.rates.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CurrencyCell.reuseIdentifier, for: indexPath) as! CurrencyCell
-        let currency = Currencies.list[indexPath.row]
-        cell.configure(for: currency)
+        let cell = tableView.dequeueReusableCell(withIdentifier: RateCell.reuseIdentifier, for: indexPath) as! RateCell
+        
+        if let rate = self.service?.rates[indexPath.row] {
+            cell.configure(for: rate)
+        }
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let rate = self.service?.rates[indexPath.row] {
+            (self.navigationController as? CurrencyNavigationController)?.showCalculator(for: rate)
+        }
     }
     
     
 }
 
-extension CurrenciesViewController: CurrencyServiceDelegate, UpdateBaseCurrencyDelegate {
+extension RatesViewController: CurrencyServiceDelegate {
     func didFetchRates() {
-        self.tableView.reloadData()
+        DispatchQueue.main.async {[unowned self] in
+            self.tableView.reloadData()
+        }
     }
     
     func didFailFetch(with error: Error) {
         print("error")
-    }
-    
-    func didUpdateBase() {
-        self.setBasecurrencyUI()
-        self.tableView.reloadData()
     }
     
 }

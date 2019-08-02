@@ -8,18 +8,11 @@
 
 import UIKit
 
-protocol UpdateBaseCurrencyDelegate: class {
-    func didUpdateBase()
-}
-
-class BasecurrencyTableViewController: UITableViewController {
+class BaseCurrencyTableController: UITableViewController {
     
     private var service: CurrencyService
-    private unowned var delegate: UpdateBaseCurrencyDelegate
-    
-    init(service: CurrencyService, delegate: UpdateBaseCurrencyDelegate) {
+    init(service: CurrencyService) {
         self.service = service
-        self.delegate = delegate
         super.init(style: .plain)
     }
     
@@ -56,7 +49,6 @@ class BasecurrencyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currency = Currencies.list[indexPath.row]
         self.service.updateBase(with: currency)
-        self.delegate.didUpdateBase()
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -15,9 +15,9 @@ protocol CurrencyServiceDelegate: class {
 
 class CurrencyService {
     
-    private static let apiKey = "8cb44e937fc077585f246cb65d101a0d"
+    private static let apiKey = "c53803884a8cd62521f26cab3ab3ef4b"
     
-    private(set) var rates: [String:String] = [:]
+    private(set) var rates: [Rate] = []
     private(set) var base: Currency
     
     private weak var delegate: CurrencyServiceDelegate?
@@ -34,10 +34,7 @@ class CurrencyService {
     
     func updateBase(with currency: Currency) {
         self.base = currency
-    }
-    
-    func updateRates(rates: [String:String]) {
-        self.rates = rates
+        self.fetchConversions()
     }
     
     func fetchConversions() {
@@ -53,14 +50,24 @@ class CurrencyService {
                 return
             }
             
-            
-            if let rates = result?[FixerConstants.ResponseKeys.rates] as? [String:String] {
-                self.updateRates(rates: rates)
+            if let rates = result?[FixerConstants.ResponseKeys.rates] as? [String:Any] {
+                self.setRates(rates: rates)
                 self.resetRefreshTimer()
                 self.delegate?.didFetchRates()
             }
         }
         
+    }
+    
+    private func setRates(rates: [String:Any]) {
+        self.rates.removeAll()
+        for currency in Currencies.list {
+            if let availableRate = rates[currency.code] as? Double {
+                let rounded = round(availableRate * 100)/100
+                let newRate = Rate(for: currency, rate: rounded)
+                self.rates.append(newRate)
+            }
+        }
     }
     
     private static func performRequest(_ request: URLRequest, completion: @escaping (AnyObject?, Error?) -> Void) {

@@ -16,7 +16,7 @@ class CurrencyNavigationController: UINavigationController {
 //        super.init(nibName: nil, bundle: nil)
 //    }
     
-    init(root: CurrenciesViewController, service: CurrencyService) {
+    init(root: RatesViewController, service: CurrencyService) {
         self.currencyService = service
         super.init(nibName: nil, bundle: nil)
         self.setViewControllers([root], animated: false)
@@ -28,6 +28,15 @@ class CurrencyNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func showCalculator(for rate: Rate) {
+        
+        if let calculatorController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: CalculatorViewController.identifier) as? CalculatorViewController {
+            calculatorController.rate = rate
+            self.pushViewController(calculatorController, animated: true)
+        }
+        
     }
     
 

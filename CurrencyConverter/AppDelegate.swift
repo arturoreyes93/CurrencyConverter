@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        if let currenciesController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: CurrenciesViewController.identifier) as? CurrenciesViewController {
+        if let currenciesController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: RatesViewController.identifier) as? RatesViewController {
             
-            let currencyService = CurrencyService(base: Currencies.USA(), delegate: currenciesController)
+            let currencyService = CurrencyService(base: Currencies.USD(), delegate: currenciesController)
             let navigationController = CurrencyNavigationController(root: currenciesController, service: currencyService)
             
             self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -28,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask(rawValue: UIInterfaceOrientationMask.portrait.rawValue)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
