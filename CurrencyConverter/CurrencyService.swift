@@ -15,7 +15,7 @@ protocol CurrencyServiceDelegate: class {
 
 class CurrencyService {
     
-    private static let apiKey = "c53803884a8cd62521f26cab3ab3ef4b"
+    private static let apiKey = "837fb125819396f38fdf0caf23f2e4a0"
     
     private(set) var rates: [Rate] = []
     private(set) var base: Currency
